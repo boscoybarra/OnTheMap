@@ -49,7 +49,7 @@ extension OTMClient {
     func getStudentLocations(completionHandler: @escaping (_ result: [StudentInformation]?, _ error: NSError?) -> Void){
         
         /* 1. Set the parameters */
-        let parameters = [JSONBodyKeys.Limit: JSONBodyKeys.Cien]
+        let parameters = [JSONBodyKeys.Limit: JSONBodyKeys.Hundred]
         
         let _ = taskForGetMethod(method:Methods.StudentLocation, parameters: parameters as [String : AnyObject]) {(results, error) in
             

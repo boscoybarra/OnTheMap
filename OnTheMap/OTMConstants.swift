@@ -59,7 +59,7 @@
         // MARK: General
         static let Method = "method"
         static let Limit = "limit"
-        static let Cien = "10"
+        static let Hundred = "10"
     }
     
     // MARK: JSON Response Keys
