@@ -12,6 +12,4 @@ import Foundation
 class StudentLocation {
 
         
-    
-
 }
