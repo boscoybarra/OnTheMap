@@ -112,7 +112,7 @@ extension OTMClient {
     func queryForAStudent(completionHandler: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let parameters = [OTMClient.JSONResponseKeys.ObjectID : appDelegate.userID]
+        let parameters = [JSONBodyKeys.Where : "{\"\(JSONBodyKeys.UniqueKey)\":\"\(appDelegate.userID)\"}"]
         
         let _ = taskForGetMethod(method: Methods.StudentLocation, parameters: parameters as [String : AnyObject]) {(JSONResult, error) in
             
@@ -123,6 +123,7 @@ extension OTMClient {
             
             if let results = JSONResult?[JSONResponseKeys.Results] as? [[String:AnyObject]] {
                 completionHandler(results, nil)
+                print("This are Boscos result INFO",results)
             } else {
                 completionHandler(nil, NSError(domain: "getStudentLocations", code: 0, userInfo:  [NSLocalizedDescriptionKey: "Could not parse student data"]))
             }

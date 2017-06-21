@@ -32,14 +32,14 @@ struct StudentInformation {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
-        self.firstName = dictionary[OTMClient.JSONResponseKeys.First_Name] as! String
-        self.lastName = dictionary[OTMClient.JSONResponseKeys.Last_Name] as! String
-        self.latitude = dictionary[OTMClient.JSONBodyKeys.Latitude] as! Double
-        self.longitude = dictionary[OTMClient.JSONBodyKeys.Longitude] as! Double
-        self.mapString = dictionary[OTMClient.JSONBodyKeys.MapString] as! String
-        self.mediaURL = dictionary[OTMClient.JSONBodyKeys.MediaURL] as! String
-        self.objectID = dictionary[OTMClient.JSONResponseKeys.ObjectID] as! String
-        self.uniqueKey = dictionary[OTMClient.JSONBodyKeys.UniqueKey] as! String
+        self.firstName = dictionary[OTMClient.JSONResponseKeys.First_Name] as? String ?? "[First Name]"
+        self.lastName = dictionary[OTMClient.JSONResponseKeys.Last_Name] as? String ?? "[Last Name]"
+        self.latitude = dictionary[OTMClient.JSONBodyKeys.Latitude] as? Double ?? 0.0
+        self.longitude = dictionary[OTMClient.JSONBodyKeys.Longitude] as? Double ?? 0.0
+        self.mapString = dictionary[OTMClient.JSONBodyKeys.MapString] as? String ?? "[www.udacity.com]"
+        self.mediaURL = dictionary[OTMClient.JSONBodyKeys.MediaURL] as? String ?? "[www.udacity.com]"
+        self.objectID = dictionary[OTMClient.JSONResponseKeys.ObjectID] as? String ?? "[0000001]"
+        self.uniqueKey = dictionary[OTMClient.JSONBodyKeys.UniqueKey] as? String ?? "[No Unique Key]"
         self.createdAt = dateFormatter.date(from: dictionary[OTMClient.JSONBodyKeys.CreatedAt] as! String)! as NSDate
         self.updatedAt = dateFormatter.date(from: dictionary[OTMClient.JSONBodyKeys.UpdatedAt] as! String)! as NSDate
         

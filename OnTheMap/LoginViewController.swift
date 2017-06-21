@@ -122,11 +122,11 @@ class LoginViewController: UIViewController {
         if errorString.range(of: "400") != nil{
             errorString = "Please enter your email address and password."
         } else if errorString.range(of: "403")  != nil {
-            errorString = "Wrong email address or password entered."
+            errorString = "Ups! Try again entering your email address and password."
         } else if errorString.range(of: "1009") != nil {
-            errorString = "Something is wrong with the network connection."
+            errorString = "Check your network connection is ."
         } else {
-            errorString = "Something went wrong! Try again"
+            errorString = "The credentials were incorrect, please try again"
         }
         
         self.showAlert(alertTitle: titleString, alertMessage: errorString, actionTitle: "Try again")

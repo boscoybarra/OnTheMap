@@ -26,7 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Properties
     
     var appDelegate: AppDelegate!
-    var locations: [StudentInformation] = [StudentInformation]()
+    var locations = StudentDataSource.sharedInstance.studentData
     
     // The map. See the setup in the Storyboard file. Note particularly that the view controller
     // is set up as the map view's delegate.
@@ -95,8 +95,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
             
             if result?.count != 0 {
-                let resultArray = result![0]
-                let objectID = resultArray[OTMClient.JSONResponseKeys.ObjectID]
+                let resultArray = result?[0]
+                print("This is the Array",resultArray!)
+                let objectID = resultArray?[OTMClient.JSONResponseKeys.ObjectID]
+                print("This is the objectID",objectID!)
                 self.appDelegate.objectID = objectID as! String
                 self.showOverwriteLocationAlert()
             }
@@ -161,8 +163,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         /* Prepare to overwrite for the alert */
         let overWriteAction = UIAlertAction(title: "Overwrite", style: .default) {(action) in
             /* instantiate and then present the view controller */
-            let informationPostingViewController = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostingViewController")
-            self.present(informationPostingViewController, animated: true, completion: nil)
+            let infoPostingViewController = self.storyboard!.instantiateViewController(withIdentifier: "InfoPostingViewController")
+            self.present(infoPostingViewController, animated: true, completion: nil)
         }
         
         /* Prepare the cancel for the alert */

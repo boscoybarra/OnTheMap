@@ -18,7 +18,7 @@
 		291305DA1EE9DC0300AC2CE4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305D91EE9DC0300AC2CE4 /* LoginViewController.swift */; };
 		291305DC1EE9EA4E00AC2CE4 /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305DB1EE9EA4E00AC2CE4 /* GCD.swift */; };
 		291305DE1EE9FDAD00AC2CE4 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */; };
-		29A287341EEF01C9003769D7 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A287331EEF01C9003769D7 /* StudentLocation.swift */; };
+		29A287341EEF01C9003769D7 /* StudentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A287331EEF01C9003769D7 /* StudentDataSource.swift */; };
 		29A287361EEF1C2B003769D7 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A287351EEF1C2B003769D7 /* StudentInformation.swift */; };
 		29CD7B3D1EF464B90071FB45 /* StudentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CD7B3C1EF464B90071FB45 /* StudentsTableViewController.swift */; };
 		29CD7B3F1EF470F90071FB45 /* InfoPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CD7B3E1EF470F90071FB45 /* InfoPostingViewController.swift */; };
@@ -38,7 +38,7 @@
 		291305D91EE9DC0300AC2CE4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		291305DB1EE9EA4E00AC2CE4 /* GCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
 		291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
-		29A287331EEF01C9003769D7 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		29A287331EEF01C9003769D7 /* StudentDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentDataSource.swift; sourceTree = "<group>"; };
 		29A287351EEF1C2B003769D7 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		29CD7B3C1EF464B90071FB45 /* StudentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsTableViewController.swift; sourceTree = "<group>"; };
 		29CD7B3E1EF470F90071FB45 /* InfoPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostingViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				291305C51EE9D0E300AC2CE4 /* AppDelegate.swift */,
-				29A287331EEF01C9003769D7 /* StudentLocation.swift */,
+				29A287331EEF01C9003769D7 /* StudentDataSource.swift */,
 				29A287351EEF1C2B003769D7 /* StudentInformation.swift */,
 				29CD7B3E1EF470F90071FB45 /* InfoPostingViewController.swift */,
 				290765311EF19EDD005D6091 /* Controller */,
@@ -205,7 +205,7 @@
 				291305DC1EE9EA4E00AC2CE4 /* GCD.swift in Sources */,
 				291305DA1EE9DC0300AC2CE4 /* LoginViewController.swift in Sources */,
 				29CD7B3D1EF464B90071FB45 /* StudentsTableViewController.swift in Sources */,
-				29A287341EEF01C9003769D7 /* StudentLocation.swift in Sources */,
+				29A287341EEF01C9003769D7 /* StudentDataSource.swift in Sources */,
 				291305DE1EE9FDAD00AC2CE4 /* BorderedButton.swift in Sources */,
 				291305D81EE9D36B00AC2CE4 /* OTMConstants.swift in Sources */,
 				29CD7B3F1EF470F90071FB45 /* InfoPostingViewController.swift in Sources */,

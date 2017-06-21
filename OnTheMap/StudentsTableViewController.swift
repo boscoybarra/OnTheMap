@@ -12,7 +12,7 @@ class StudentsTableViewController: UITableViewController {
     
     // MARK: Properties
     
-    var locations: [StudentInformation] = [StudentInformation]()
+    var locations = StudentDataSource.sharedInstance.studentData
     
     // MARK: Outlets
     
@@ -51,6 +51,22 @@ class StudentsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return locations.count
     }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let app = UIApplication.shared
+        
+        if let cell = tableView.cellForRow(at: indexPath as IndexPath){
+            if let toOpen = cell.detailTextLabel?.text, let url = NSURL(string: toOpen), app.canOpenURL(url as URL) {
+                if UIApplication.shared.canOpenURL(NSURL(string: toOpen)! as URL){
+                    app.openURL(url as URL)
+                    print("Url should have opened")
+                } else {
+                    showAlert(titleString: "Unable to load webpage", errorString: "Webpage couldn't be opened because the link was invalid.")
+                }
+            }
+        }
+    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,6 +89,17 @@ class StudentsTableViewController: UITableViewController {
         attributedText.addAttributes([NSFontAttributeName: font!], range: rangeToStyle)
         
         return attributedText
+    }
+    
+    //Function that configures and shows an alert
+    func showAlert(titleString: String, errorString: String){
+        
+        /* Configure the alert view to display the error */
+        let alert = UIAlertController(title: titleString, message: errorString, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+        
+        /* Present the alert view */
+        self.present(alert, animated: true, completion: nil)
     }
 
 }

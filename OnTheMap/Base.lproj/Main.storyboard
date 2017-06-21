@@ -259,7 +259,7 @@
         <!--Info Posting View Controller-->
         <scene sceneID="D0y-dT-uc1">
             <objects>
-                <viewController storyboardIdentifier="InformationPostingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bv8-FC-WY7" customClass="InfoPostingViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoPostingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bv8-FC-WY7" customClass="InfoPostingViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L4X-YI-vTI"/>
                         <viewControllerLayoutGuide type="bottom" id="Ryh-BN-2Dn"/>

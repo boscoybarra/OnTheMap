@@ -43,6 +43,7 @@
         static let MediaURL = "mediaURL"
         static let Latitude = "latitude"
         static let Longitude = "longitude"
+        static let Where = "where"
         
         
         // MARK: Dates
@@ -59,7 +60,7 @@
         // MARK: General
         static let Method = "method"
         static let Limit = "limit"
-        static let Hundred = "10"
+        static let Hundred = "100"
     }
     
     // MARK: JSON Response Keys
