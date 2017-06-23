@@ -10,9 +10,9 @@ import Foundation
 
 class OTMClient : NSObject {
     
+    // MARK: Properties
+    
     var session = URLSession.shared
-    var sessionID: String?
-    var uniqueKey: String?
  
     
     // MARK: POST SESSION
@@ -75,7 +75,7 @@ class OTMClient : NSObject {
     
     func taskForPostMethod(method: String, jsonBody: [String : AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
         
-        var request = NSMutableURLRequest(url: tmdbURLFromParameters(nil, withPathExtension: method))
+        var request = NSMutableURLRequest(url: self.tmdbURLFromParameters(nil, withPathExtension: method))
         
         request.httpMethod = "POST"
         request.addValue(Constants.ParseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
@@ -129,11 +129,11 @@ class OTMClient : NSObject {
     
     func taskForGetMethod(method: String, parameters: [String : AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
         
-        //build url and configure request
-        var parametersWithApiKey = parameters
-        
         /* 1. Set the parameters */
-        let request = NSMutableURLRequest(url: tmdbURLFromParameters(parametersWithApiKey, withPathExtension: method))
+      
+        let url = self.tmdbURLFromParameters(parameters, withPathExtension: method)
+        
+        let request = NSMutableURLRequest(url: url)
         
         /* 2/3. Build the UrL and configure the request */
         
