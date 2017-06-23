@@ -255,13 +255,6 @@ class InfoPostingViewController : UIViewController, UITextFieldDelegate, MKMapVi
         })
     }
     
-    //MARK: -- Error helper functions
-    func showAlert(alertTitle: String, alertMessage: String, actionTitle: String){
-        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
     
     //MARK: -- Textfield delegate functions
     func textFieldShouldReturn(textField: UITextField) -> Bool {

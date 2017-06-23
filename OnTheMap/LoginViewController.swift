@@ -140,19 +140,6 @@ class LoginViewController: UIViewController {
         loginButton.isEnabled = true
         sender.alpha = 1.0
     }
-
-    
-    
-    //Function that configures and shows an alert
-    func showAlert(alertTitle: String, alertMessage: String, actionTitle: String){
-        
-        /* Configure the alert view to display the error */
-        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        
-        /* Present the alert view */
-        self.present(alert, animated: true, completion: nil)
-    }
     
     //Function that animates the screen to show login has failed
     func shakeScreen(){

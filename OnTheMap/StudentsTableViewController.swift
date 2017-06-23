@@ -17,16 +17,6 @@ class StudentsTableViewController: UITableViewController {
     // MARK: Outlets
     
     @IBOutlet weak var locationsTableView: UITableView!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,7 +52,7 @@ class StudentsTableViewController: UITableViewController {
                     app.openURL(url as URL)
                     print("Url should have opened")
                 } else {
-                    showAlert(titleString: "Unable to load webpage", errorString: "Webpage couldn't be opened because the link was invalid.")
+                    showAlert(alertTitle: "Unable to load webpage", alertMessage: "Webpage couldn't be opened because the link was invalid.", actionTitle: "Try again!")
                 }
             }
         }
@@ -92,14 +82,14 @@ class StudentsTableViewController: UITableViewController {
     }
     
     //Function that configures and shows an alert
-    func showAlert(titleString: String, errorString: String){
-        
-        /* Configure the alert view to display the error */
-        let alert = UIAlertController(title: titleString, message: errorString, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
-        
-        /* Present the alert view */
-        self.present(alert, animated: true, completion: nil)
-    }
+//    func showAlert(titleString: String, errorString: String){
+//        
+//        /* Configure the alert view to display the error */
+//        let alert = UIAlertController(title: titleString, message: errorString, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+//        
+//        /* Present the alert view */
+//        self.present(alert, animated: true, completion: nil)
+//    }
 
 }

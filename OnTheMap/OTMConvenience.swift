@@ -15,7 +15,7 @@ extension OTMClient {
     
     
     func postSession(username: String, password: String, completionHandler: @escaping (_ result: String?, _ error: NSError?) -> Void){
-        let method = Methods.SessionID
+        let method = OTMClient.Methods.SessionID
         let jsonBody = [
             JSONBodyKeys.Udacity : [
                 JSONBodyKeys.Username : username,
@@ -23,7 +23,7 @@ extension OTMClient {
             ],
         ]
         
-        let _ = taskForPostMethod(method: method, jsonBody: jsonBody as [String : AnyObject]) { (JSONResult, error) in
+        let _ = taskForPostSession(method: method, jsonBody: jsonBody as [String : AnyObject]) { (JSONResult, error) in
             
             guard error == nil else {
                 completionHandler(nil, error)
@@ -49,7 +49,9 @@ extension OTMClient {
     func getStudentLocations(completionHandler: @escaping (_ result: [StudentInformation]?, _ error: NSError?) -> Void){
         
         /* 1. Set the parameters */
-        let parameters = [JSONBodyKeys.Limit: JSONBodyKeys.Hundred]
+        let parameters = [JSONBodyKeys.Limit: JSONBodyKeys.Hundred,
+                          JSONBodyKeys.Order: JSONResponseKeys.LastUpdated
+                          ]
         
         let _ = taskForGetMethod(method:Methods.StudentLocation, parameters: parameters as [String : AnyObject]) {(results, error) in
             
@@ -112,7 +114,7 @@ extension OTMClient {
     func queryForAStudent(completionHandler: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let parameters = [JSONBodyKeys.Where : "{\"\(JSONBodyKeys.UniqueKey)\":\"\(appDelegate.userID)\"}"]
+        let parameters = [JSONBodyKeys.Where : "{\"\(JSONBodyKeys.UniqueKey)\":\"" + "\(appDelegate.userID)" + "\"}" as AnyObject]
         
         let _ = taskForGetMethod(method: Methods.StudentLocation, parameters: parameters as [String : AnyObject]) {(JSONResult, error) in
             

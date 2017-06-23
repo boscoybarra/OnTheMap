@@ -61,6 +61,8 @@
         static let Method = "method"
         static let Limit = "limit"
         static let Hundred = "100"
+        static let Order = "order"
+        
     }
     
     // MARK: JSON Response Keys
@@ -69,6 +71,7 @@
         // MARK: General
         static let StatusMessage = "status_message"
         static let StatusCode = "status_code"
+        static let LastUpdated = "-updatedAt"
     
         
         // MARK: Authorization
