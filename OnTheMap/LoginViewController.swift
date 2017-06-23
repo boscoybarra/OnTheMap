@@ -38,8 +38,8 @@ class LoginViewController: UIViewController {
         
         subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
-        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
-        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
+        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardWillShow))
+        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardWillHide))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -176,34 +176,40 @@ extension LoginViewController: UITextFieldDelegate {
         return true
     }
     
-    // MARK: Show/Hide Keyboard
+    // MARK: Keyboard Notifications
     
-    func keyboardWillShow(_ notification: Notification) {
-        if !keyboardOnScreen {
-            view.frame.origin.y -= keyboardHeight(notification)
-            movieImageView.isHidden = true
+    func keyboardWillShow(_ notification:Notification) {
+        if usernameTextField.isFirstResponder && view.frame.origin.y == 0 {
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
-        if keyboardOnScreen {
-            view.frame.origin.y += keyboardHeight(notification)
-            movieImageView.isHidden = false
+    func keyboardWillHide(_ notification:Notification) {
+        if movieImageView.isFirstResponder && view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
         }
+        
     }
     
-    func keyboardDidShow(_ notification: Notification) {
-        keyboardOnScreen = true
-    }
-    
-    func keyboardDidHide(_ notification: Notification) {
-        keyboardOnScreen = false
-    }
-    
-    private func keyboardHeight(_ notification: Notification) -> CGFloat {
-        let userInfo = (notification as NSNotification).userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
     private func resignIfFirstResponder(_ textField: UITextField) {
