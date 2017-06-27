@@ -18,10 +18,26 @@
 		291305DA1EE9DC0300AC2CE4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305D91EE9DC0300AC2CE4 /* LoginViewController.swift */; };
 		291305DC1EE9EA4E00AC2CE4 /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305DB1EE9EA4E00AC2CE4 /* GCD.swift */; };
 		291305DE1EE9FDAD00AC2CE4 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */; };
-		29A287341EEF01C9003769D7 /* StudentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A287331EEF01C9003769D7 /* StudentDataSource.swift */; };
-		29A287361EEF1C2B003769D7 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A287351EEF1C2B003769D7 /* StudentInformation.swift */; };
+		2941189C1F0199B500EE6001 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941189B1F0199B500EE6001 /* Student.swift */; };
+		2941189E1F019A0800EE6001 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941189D1F019A0800EE6001 /* Location.swift */; };
+		294118A01F01A2AB00EE6001 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941189F1F01A2AB00EE6001 /* MainViewController.swift */; };
+		2973248B1F0142E3009DAF80 /* Posting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2973248A1F0142E3009DAF80 /* Posting.storyboard */; };
+		2973248F1F01438D009DAF80 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973248E1F01438D009DAF80 /* PostViewController.swift */; };
+		297324911F0143B2009DAF80 /* PostVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297324901F0143B2009DAF80 /* PostVerificationViewController.swift */; };
+		297324931F014636009DAF80 /* UIStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297324921F014636009DAF80 /* UIStateController.swift */; };
+		297324951F01468B009DAF80 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297324941F01468B009DAF80 /* ActivityIndicator.swift */; };
+		297324971F0147F7009DAF80 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297324961F0147F7009DAF80 /* NetworkReachability.swift */; };
+		297324991F014A5A009DAF80 /* Initial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297324981F014A5A009DAF80 /* Initial.storyboard */; };
+		2973249B1F014AB2009DAF80 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973249A1F014AB2009DAF80 /* InitialViewController.swift */; };
+		298E3D8E1F0166CD00AD3FA9 /* OTMInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D8D1F0166CD00AD3FA9 /* OTMInstance.swift */; };
+		298E3D901F01809800AD3FA9 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D8F1F01809800AD3FA9 /* SessionManager.swift */; };
+		298E3D931F01898D00AD3FA9 /* On_The_Map.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D911F01898D00AD3FA9 /* On_The_Map.xcdatamodeld */; };
+		298E3D951F018A2B00AD3FA9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 298E3D941F018A2B00AD3FA9 /* Login.storyboard */; };
+		298E3D971F018CC300AD3FA9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D961F018CC300AD3FA9 /* AlertController.swift */; };
+		298E3D991F018DF000AD3FA9 /* SafariServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D981F018DF000AD3FA9 /* SafariServices.swift */; };
+		298E3D9D1F0192B900AD3FA9 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D9C1F0192B900AD3FA9 /* DataSource.swift */; };
+		29CB963E1F02AB1D0047508C /* UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CB963D1F02AB1D0047508C /* UITextFieldDelegate.swift */; };
 		29CD7B3D1EF464B90071FB45 /* StudentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CD7B3C1EF464B90071FB45 /* StudentsTableViewController.swift */; };
-		29CD7B3F1EF470F90071FB45 /* InfoPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CD7B3E1EF470F90071FB45 /* InfoPostingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,10 +54,26 @@
 		291305D91EE9DC0300AC2CE4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		291305DB1EE9EA4E00AC2CE4 /* GCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
 		291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
-		29A287331EEF01C9003769D7 /* StudentDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentDataSource.swift; sourceTree = "<group>"; };
-		29A287351EEF1C2B003769D7 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
+		2941189B1F0199B500EE6001 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		2941189D1F019A0800EE6001 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		2941189F1F01A2AB00EE6001 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		2973248A1F0142E3009DAF80 /* Posting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Posting.storyboard; sourceTree = "<group>"; };
+		2973248E1F01438D009DAF80 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		297324901F0143B2009DAF80 /* PostVerificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVerificationViewController.swift; sourceTree = "<group>"; };
+		297324921F014636009DAF80 /* UIStateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStateController.swift; sourceTree = "<group>"; };
+		297324941F01468B009DAF80 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		297324961F0147F7009DAF80 /* NetworkReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
+		297324981F014A5A009DAF80 /* Initial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Initial.storyboard; sourceTree = "<group>"; };
+		2973249A1F014AB2009DAF80 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		298E3D8D1F0166CD00AD3FA9 /* OTMInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMInstance.swift; sourceTree = "<group>"; };
+		298E3D8F1F01809800AD3FA9 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		298E3D921F01898D00AD3FA9 /* On_The_Map.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = On_The_Map.xcdatamodel; sourceTree = "<group>"; };
+		298E3D941F018A2B00AD3FA9 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		298E3D961F018CC300AD3FA9 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		298E3D981F018DF000AD3FA9 /* SafariServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariServices.swift; sourceTree = "<group>"; };
+		298E3D9C1F0192B900AD3FA9 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		29CB963D1F02AB1D0047508C /* UITextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegate.swift; sourceTree = "<group>"; };
 		29CD7B3C1EF464B90071FB45 /* StudentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsTableViewController.swift; sourceTree = "<group>"; };
-		29CD7B3E1EF470F90071FB45 /* InfoPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +91,12 @@
 			isa = PBXGroup;
 			children = (
 				291305D91EE9DC0300AC2CE4 /* LoginViewController.swift */,
+				2973249A1F014AB2009DAF80 /* InitialViewController.swift */,
 				291305C71EE9D0E300AC2CE4 /* MapViewController.swift */,
+				2941189F1F01A2AB00EE6001 /* MainViewController.swift */,
 				29CD7B3C1EF464B90071FB45 /* StudentsTableViewController.swift */,
+				2973248E1F01438D009DAF80 /* PostViewController.swift */,
+				297324901F0143B2009DAF80 /* PostVerificationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -68,6 +104,10 @@
 		290765341EF1A056005D6091 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				298E3D8F1F01809800AD3FA9 /* SessionManager.swift */,
+				298E3D9C1F0192B900AD3FA9 /* DataSource.swift */,
+				2941189B1F0199B500EE6001 /* Student.swift */,
+				2941189D1F019A0800EE6001 /* Location.swift */,
 				290765351EF1A062005D6091 /* Clients */,
 			);
 			name = Model;
@@ -87,6 +127,7 @@
 				291305D71EE9D36B00AC2CE4 /* OTMConstants.swift */,
 				290765371EF1A407005D6091 /* OTMConvenience.swift */,
 				290765321EF1A051005D6091 /* OTMClient.swift */,
+				298E3D8D1F0166CD00AD3FA9 /* OTMInstance.swift */,
 			);
 			name = OTM;
 			sourceTree = "<group>";
@@ -111,17 +152,24 @@
 			isa = PBXGroup;
 			children = (
 				291305C51EE9D0E300AC2CE4 /* AppDelegate.swift */,
-				29A287331EEF01C9003769D7 /* StudentDataSource.swift */,
-				29A287351EEF1C2B003769D7 /* StudentInformation.swift */,
-				29CD7B3E1EF470F90071FB45 /* InfoPostingViewController.swift */,
-				290765311EF19EDD005D6091 /* Controller */,
+				298E3D981F018DF000AD3FA9 /* SafariServices.swift */,
+				297324961F0147F7009DAF80 /* NetworkReachability.swift */,
+				297324921F014636009DAF80 /* UIStateController.swift */,
+				298E3D961F018CC300AD3FA9 /* AlertController.swift */,
 				291305DB1EE9EA4E00AC2CE4 /* GCD.swift */,
+				297324941F01468B009DAF80 /* ActivityIndicator.swift */,
+				29CB963D1F02AB1D0047508C /* UITextFieldDelegate.swift */,
+				290765311EF19EDD005D6091 /* Controller */,
 				291305CC1EE9D0E400AC2CE4 /* Assets.xcassets */,
+				298E3D941F018A2B00AD3FA9 /* Login.storyboard */,
 				291305C91EE9D0E400AC2CE4 /* Main.storyboard */,
+				2973248A1F0142E3009DAF80 /* Posting.storyboard */,
+				297324981F014A5A009DAF80 /* Initial.storyboard */,
+				291305CE1EE9D0E400AC2CE4 /* LaunchScreen.storyboard */,
 				290765341EF1A056005D6091 /* Model */,
 				291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */,
-				291305CE1EE9D0E400AC2CE4 /* LaunchScreen.storyboard */,
 				291305D11EE9D0E400AC2CE4 /* Info.plist */,
+				298E3D911F01898D00AD3FA9 /* On_The_Map.xcdatamodeld */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -187,7 +235,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				291305D01EE9D0E400AC2CE4 /* LaunchScreen.storyboard in Resources */,
+				2973248B1F0142E3009DAF80 /* Posting.storyboard in Resources */,
+				298E3D951F018A2B00AD3FA9 /* Login.storyboard in Resources */,
 				291305CD1EE9D0E400AC2CE4 /* Assets.xcassets in Resources */,
+				297324991F014A5A009DAF80 /* Initial.storyboard in Resources */,
 				291305CB1EE9D0E400AC2CE4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,18 +250,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2973248F1F01438D009DAF80 /* PostViewController.swift in Sources */,
+				297324951F01468B009DAF80 /* ActivityIndicator.swift in Sources */,
 				290765381EF1A407005D6091 /* OTMConvenience.swift in Sources */,
-				29A287361EEF1C2B003769D7 /* StudentInformation.swift in Sources */,
+				297324911F0143B2009DAF80 /* PostVerificationViewController.swift in Sources */,
+				298E3D9D1F0192B900AD3FA9 /* DataSource.swift in Sources */,
+				297324931F014636009DAF80 /* UIStateController.swift in Sources */,
 				290765331EF1A051005D6091 /* OTMClient.swift in Sources */,
+				2973249B1F014AB2009DAF80 /* InitialViewController.swift in Sources */,
 				291305DC1EE9EA4E00AC2CE4 /* GCD.swift in Sources */,
+				298E3D991F018DF000AD3FA9 /* SafariServices.swift in Sources */,
+				29CB963E1F02AB1D0047508C /* UITextFieldDelegate.swift in Sources */,
+				2941189E1F019A0800EE6001 /* Location.swift in Sources */,
+				2941189C1F0199B500EE6001 /* Student.swift in Sources */,
+				298E3D8E1F0166CD00AD3FA9 /* OTMInstance.swift in Sources */,
 				291305DA1EE9DC0300AC2CE4 /* LoginViewController.swift in Sources */,
+				298E3D971F018CC300AD3FA9 /* AlertController.swift in Sources */,
+				294118A01F01A2AB00EE6001 /* MainViewController.swift in Sources */,
 				29CD7B3D1EF464B90071FB45 /* StudentsTableViewController.swift in Sources */,
-				29A287341EEF01C9003769D7 /* StudentDataSource.swift in Sources */,
+				298E3D931F01898D00AD3FA9 /* On_The_Map.xcdatamodeld in Sources */,
+				297324971F0147F7009DAF80 /* NetworkReachability.swift in Sources */,
 				291305DE1EE9FDAD00AC2CE4 /* BorderedButton.swift in Sources */,
 				291305D81EE9D36B00AC2CE4 /* OTMConstants.swift in Sources */,
-				29CD7B3F1EF470F90071FB45 /* InfoPostingViewController.swift in Sources */,
 				291305C81EE9D0E300AC2CE4 /* MapViewController.swift in Sources */,
 				291305C61EE9D0E300AC2CE4 /* AppDelegate.swift in Sources */,
+				298E3D901F01809800AD3FA9 /* SessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +441,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		298E3D911F01898D00AD3FA9 /* On_The_Map.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				298E3D921F01898D00AD3FA9 /* On_The_Map.xcdatamodel */,
+			);
+			currentVersion = 298E3D921F01898D00AD3FA9 /* On_The_Map.xcdatamodel */;
+			path = On_The_Map.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 291305BA1EE9D0E300AC2CE4 /* Project object */;
 }

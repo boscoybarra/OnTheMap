@@ -23,7 +23,7 @@ class InfoPostingViewController : UIViewController, UITextFieldDelegate, MKMapVi
     @IBOutlet weak var mapView: MKMapView!
     
     //MARK: -- Properties
-    var userLocation = [CLPlacemark]()
+    //var userLocation = [CLPlacemark]()
     var appDelegate: AppDelegate!
     
     /*Student Location details*/
@@ -96,10 +96,10 @@ class InfoPostingViewController : UIViewController, UITextFieldDelegate, MKMapVi
                 }
                 
                 /* Assign the returned location to the userLocation property */
-                self.userLocation = placemark!
+                //self.userLocation = placemark!
                 
                 /* Setup the map with the pin coresponding to placemark */
-                self.configureMap()
+                //self.configureMap()
                 
                 /* Makes the appropriate changes to the UI after getting a successful placemark */
                 self.changeUserInterface()
@@ -137,7 +137,7 @@ class InfoPostingViewController : UIViewController, UITextFieldDelegate, MKMapVi
             OTMClient.JSONBodyKeys.MapString: studentLocationName as AnyObject,
             OTMClient.JSONBodyKeys.MediaURL: urlTextField.text! as AnyObject,
             OTMClient.JSONBodyKeys.Latitude: studentLat as AnyObject,
-            OTMClient.JSONBodyKeys.Longitude: studentLon as AnyObject
+            OTMClient.JSONBodyKeys.Longitude: studentLon as AnyObject,
         ]
         
         if appDelegate.objectID == "" {

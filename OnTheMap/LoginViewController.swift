@@ -7,245 +7,125 @@
 //
 
 import UIKit
-
-// MARK: - LoginViewController: UIViewController
-
-class LoginViewController: UIViewController {
+class LogInViewController: UIViewController {
+    
+    // Outlets
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var logInButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var thirdQuarterView: UIView!
     
     // MARK: Properties
     
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    
+    let backgroundView = UIView()
+    
     var appDelegate: AppDelegate!
-    var keyboardOnScreen = false
-    
-    // MARK: Outlets
-    
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var loginButton: BorderedButton!
-    @IBOutlet weak var debugTextLabel: UILabel!
-    @IBOutlet weak var movieImageView: UIImageView!
-    
-    // MARK: Life Cycle
+    var email: String?
+    var password: String?
+    var validAccount: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // get the app delegate
         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        logInButton.layer.cornerRadius = 5.0
+        logInButton.clipsToBounds = true
         
-        //TODO configureUI()
+        signUpButton.addTarget(self, action: #selector(signUp), for: .touchUpInside)
+        logInButton.addTarget(self, action: #selector(logIn), for: .touchUpInside)
         
-        subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
-        subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
-        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardWillShow))
-        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardWillHide))
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        debugTextLabel.text = ""
-        unsubscribeFromAllNotifications()
-    }
-    
-    // MARK: Login
-    
-    @IBAction func loginPressed(_ sender: AnyObject) {
-        
-        userDidTapView(self)
-        /* Disable the buttons in the UIonce the Login button has been pressed */
-        enableButtons(sender: sender as! UIButton)
-        
-        /* Show activity to show the app is processing data */
-        let activityView = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-        activityView.center = view.center
-        activityView.startAnimating()
-        view.addSubview(activityView)
-        
-        if usernameTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
-            debugTextLabel.text = "Username or Password Empty."
+    @objc private func logIn() {
+        if emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
+            presentErrorAlertController("", alertMessage: "Username and Password you entered are wrong")
         } else {
-            OTMClient.sharedInstance().postSession(username:usernameTextField.text!, password:passwordTextField.text! ) { (result, error) in
-                
-                /* GUARD: Was there an error? */
-                guard error == nil else {
-                    
-                    /* Check to see what type of error occured */
-                    if let errorString = error?.userInfo[NSLocalizedDescriptionKey] as? String {
-                        
-                        /* Display an alert and shake the view letting the user know the authentication failed */
-                        DispatchQueue.main.async(execute: {
-                            
-                            self.showAuthenticationAlert(errorString: errorString)
-                            self.shakeScreen()
-                            activityView.stopAnimating()
-                        })
+            
+            email = emailTextField.text!
+            password = passwordTextField.text!
+            
+            guard isConnectedToNetwork() else {
+                presentErrorAlertController("Network Connection Error", alertMessage: "No network connection, please try again later")
+                return
+            }
+            
+            self.state(state: .loading, activityIndicator: self.activityIndicator, background: self.backgroundView)
+            OTMClient.postSession(username: email!, password: password!) { (error: RequestError?, errorDescription: String?) in
+                if error == nil {
+                    self.executeOnMain {
+                        self.emailTextField.text = ""
+                        self.passwordTextField.text = ""
                     }
-                    return
-                }
-                
-                self.appDelegate.userID = result!
-                
-                DispatchQueue.main.async(execute: {
-                     if (result != nil) {
-                    
-                    // Display the tabbed view controller
-                    self.completeLogin()
-                    self.enableButtons(sender: sender as! UIButton)
-                    activityView.stopAnimating()
+                    self.completeLogin(withLogin: true)
+                } else {
+                    if errorDescription == nil {
+                        self.executeOnMain {
+                            self.emailTextField.text = ""
+                            self.passwordTextField.text = ""
+                            self.state(state: .normal, activityIndicator: self.activityIndicator, background: self.backgroundView)
+                            self.displayError("Error \(error.debugDescription) occurs")
+                        }
                         
                     } else {
-                    self.displayError(String(describing: error))
+                        self.executeOnMain {
+                            self.emailTextField.text = ""
+                            self.passwordTextField.text = ""
+                            self.state(state: .normal, activityIndicator: self.activityIndicator, background: self.backgroundView)
+                            self.displayError(errorDescription!)
+                        }
                     }
-                })
-                
+                }
             }
         }
+        
+        
     }
     
-    private func completeLogin() {
-        performUIUpdatesOnMain {
-            self.debugTextLabel.text = ""
-            // TODO self.setUIEnabled(true)
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: "MapTabController") as! UITabBarController
-            self.present(controller, animated: true, completion: nil)
+    @objc private func signUp() {
+        guard isConnectedToNetwork() else {
+            presentErrorAlertController("Network Connection Error", alertMessage: "No network connection, please try again later")
+            return
+        }
+        let url = "https://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated"
+        self.presentURLInSafariViewController(stringURL: url)
+    }
+    
+    // Complete Login
+    private func completeLogin(withLogin: Bool) -> Void {
+        executeOnMain {
+            if withLogin {
+                self.state(state: .normal, activityIndicator: self.activityIndicator, background: self.backgroundView)
+                self.presentNextView(animate: true)
+            } else {
+                self.presentNextView(animate: false)
+            }
+            
         }
     }
     
-    //MARK: -- Error helper functions
-    
-    //Functions that presents an alert to the user with a reason as to why their login failed
-    func showAuthenticationAlert(errorString: String){
-        let titleString = "Authentication failed!"
-        var errorString = errorString
-        
-        if errorString.range(of: "400") != nil{
-            errorString = "Please enter your email address and password."
-        } else if errorString.range(of: "403")  != nil {
-            errorString = "Ups! Try again entering your email address and password."
-        } else if errorString.range(of: "1009") != nil {
-            errorString = "Check your network connection is ."
+    // Presenting next view
+    func presentNextView(animate: Bool) -> Void {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBarController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+        if animate {
+            self.present(mainTabBarController, animated: true, completion: nil)
         } else {
-            errorString = "The credentials were incorrect, please try again"
-        }
-        
-        self.showAlert(alertTitle: titleString, alertMessage: errorString, actionTitle: "Try again")
-    }
-    
-    //MARK: -- User interface helper functions
-    //Function sets up the user interface
-    
-    //Function to enable the login button
-    func enableButtons(sender: UIButton){
-        loginButton.isEnabled = true
-        sender.alpha = 1.0
-    }
-    
-    //Function that animates the screen to show login has failed
-    func shakeScreen(){
-        
-        /*Configure a shake animation */
-        let shakeAnimation = CABasicAnimation(keyPath: "position")
-        shakeAnimation.duration = 0.07
-        shakeAnimation.repeatCount = 4
-        shakeAnimation.autoreverses = true
-        shakeAnimation.fromValue = CGPoint(x:self.mainView.center.x - 10, y:self.mainView.center.y - 10)
-        shakeAnimation.toValue = CGPoint(x:self.mainView.center.x + 10, y:self.mainView.center.y + 10)
-        
-        /* Shake the view */
-        self.mainView.layer.add(shakeAnimation, forKey: "position")
-    }
-    
-    //MARK: -- Text field delegate functions
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-
-}
-
-// MARK: - LoginViewController: UITextFieldDelegate
-
-extension LoginViewController: UITextFieldDelegate {
-    
-    // MARK: UITextFieldDelegate
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // MARK: Keyboard Notifications
-    
-    func keyboardWillShow(_ notification:Notification) {
-        if usernameTextField.isFirstResponder && view.frame.origin.y == 0 {
-            view.frame.origin.y = -getKeyboardHeight(notification)
+            self.present(mainTabBarController, animated: false, completion: nil)
         }
     }
     
-    func keyboardWillHide(_ notification:Notification) {
-        if movieImageView.isFirstResponder && view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
-        }
-        
-    }
-    
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
-        return keyboardSize.cgRectValue.height
-    }
-    
-    func subscribeToKeyboardNotifications() {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
-    }
-    
-    func unsubscribeFromKeyboardNotifications() {
-        
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-    }
-    
-    private func resignIfFirstResponder(_ textField: UITextField) {
-        if textField.isFirstResponder {
-            textField.resignFirstResponder()
-        }
-    }
-    
-    @IBAction func userDidTapView(_ sender: AnyObject) {
-        resignIfFirstResponder(usernameTextField)
-        resignIfFirstResponder(passwordTextField)
-    }
-}
-
-
-
-
-
-
-
-
-// MARK: - LoginViewController (Notifications)
-
-private extension LoginViewController {
-    
-    func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
-        NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
-    }
-    
-    func unsubscribeFromAllNotifications() {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func displayError(_ errorString: String?) {
-        if let errorString = errorString {
-            debugTextLabel.text = errorString
+    // Displaying error message
+    func displayError(_ error: String) {
+        executeOnMain {
+            self.presentErrorAlertController("Error", alertMessage: error)
         }
     }
 }

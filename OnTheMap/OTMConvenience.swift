@@ -6,157 +6,299 @@
 //  Copyright © 2017 J B. All rights reserved.
 //
 
-import UIKit
 import Foundation
+import UIKit
+
+
+enum RequestError: Error {
+    case failedRequest
+    case badResponse
+    case noDataReturned
+    case parsingFailed
+    case noSessionDataReturned
+    case noAccountDataReturned
+    case noAccountRegistered
+    case other
+}
+
 
 // MARK: - TMDBClient (Convenient Resource Methods)
 
 extension OTMClient {
     
     
-    func postSession(username: String, password: String, completionHandler: @escaping (_ result: String?, _ error: NSError?) -> Void){
-        let method = OTMClient.Methods.SessionID
-        let jsonBody = [
-            JSONBodyKeys.Udacity : [
-                JSONBodyKeys.Username : username,
-                JSONBodyKeys.Password : password
-            ],
-        ]
+    static func postSession(username: String, password: String, completionHandler: @escaping (_ error: RequestError?, _ errorDescription: String?) -> Void) {
+    
+        let postSessionURL = URL(string: "https://www.udacity.com/api/session")!
         
-        let _ = taskForPostSession(method: method, jsonBody: jsonBody as [String : AnyObject]) { (JSONResult, error) in
+        var request = URLRequest(url: postSessionURL)
+        
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}"
+        request.httpBody = body.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard error == nil else {
-                completionHandler(nil, error)
+            let range = Range(uncheckedBounds: (5, data!.count))
+            let decryptedData = data?.subdata(in: range)
+            
+            guard (error == nil) else {
+                print(error.debugDescription)
+                completionHandler(.failedRequest, nil)
                 return
             }
             
-            if let dictionary = JSONResult! [JSONResponseKeys.Account] as? [String : AnyObject] {
-                if let result = dictionary[JSONResponseKeys.Key] as? String {
-                    print("Hello Bosco data", dictionary)
-                    completionHandler(result, nil)
-                } else {
-                    completionHandler(nil, NSError(domain: "postSession parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse session"]))
-                }
-            } else {
-                completionHandler(nil, NSError(domain: "postSession parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse session"]))
-                
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                completionHandler(.badResponse, nil)
+                return
             }
+            
+            guard let data = decryptedData else {
+                completionHandler(.noDataReturned, nil)
+                return
+            }
+            
+            let parsedResult: [String: AnyObject]!
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject]
+            } catch {
+                completionHandler(.parsingFailed, nil)
+                return
+            }
+
+            
+            let isStatusCode2XX = (statusCode<300) && (199<statusCode)
+            
+            if isStatusCode2XX {
+                
+                guard let sessionData = parsedResult["session"] as? [String: AnyObject], let expiration = sessionData["expiration"] as? String, let id = sessionData["id"] as? String else {
+                    completionHandler(.noSessionDataReturned, nil)
+                    return
+                }
+                
+                guard let accountData = parsedResult["account"] as? [String: AnyObject], let key = accountData["key"] as? String else {
+                    completionHandler(.noAccountDataReturned, nil)
+                    return
+                }
+                
+                let session = SessionManager.Session(id: id, key: key, expiration: expiration)
+                
+                SessionManager.session = session
+                let uniqueKey = session.key
+                UserDefaults.standard.set(uniqueKey, forKey: "uniqueKey")
+                
+                completionHandler(nil, nil)
+                
+                
+            } else {
+                
+                guard let errorDescription = parsedResult["error"] as? String else {
+                    return
+                }
+                
+                completionHandler(.other, errorDescription)
+            }
+            
         }
         
+        task.resume()
     }
+
     
     //MARK: -- Function GETs the last 100 student locations created
-    func getStudentLocations(completionHandler: @escaping (_ result: [StudentInformation]?, _ error: NSError?) -> Void){
+    static func getStudentsLocation(completion: @escaping (_ students: [Student]?, _ error: NSError?) -> Void) {
         
-        /* 1. Set the parameters */
-        let parameters = [JSONBodyKeys.Limit: JSONBodyKeys.Hundred,
-                          JSONBodyKeys.Order: JSONResponseKeys.LastUpdated
-                          ]
+        let parameters = ["limit": "300"] as [String: AnyObject]
         
-        let _ = taskForGetMethod(method:Methods.StudentLocation, parameters: parameters as [String : AnyObject]) {(results, error) in
+        OTMClient.taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (data: AnyObject?, error: NSError?) in
+            func sendError(_ error: String) {
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completion(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
             
-            guard error == nil else {
-                completionHandler(nil, error)
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error.debugDescription)")
                 return
             }
             
-            // This is where the magic takes place, we append all the Json data into an dictionary
-            if let results = results?[JSONResponseKeys.Results] as? [[String:AnyObject]] {
-                let locations = StudentInformation.studentsFromResults(results)
-                completionHandler(locations, nil)
-            } else {
-                completionHandler(nil, NSError(domain: "getStudentLocations", code: 0, userInfo:  [NSLocalizedDescriptionKey: "Could not parse student data"]))
+            guard let results = data!["results"] as? [[String : AnyObject]] else {
+                sendError("No data was returned by the request!")
+                return
             }
             
+            var students: [Student] = []
+            
+            for result in results {
+                
+                let location = Location(dictionary: result)
+                
+                if location.coordinate != nil {
+                    
+                    let student = Student(dictionary: result, location: location)
+                    
+                    let firsNameHasEmptyString = student.firstName == nil || student.firstName == ""
+                    
+                    let lastNameHasEmptyString = student.lastName == nil || student.lastName == ""
+                    
+                    if !firsNameHasEmptyString || !lastNameHasEmptyString {
+                        
+                        students.append(student)
+                        
+                    } else {
+                        
+                        // Handle no name student error here
+                    }
+                    
+                } else {
+                    
+                    // Handle no location student error here
+                    
+                }
+            }
+            
+            DataSource.students = students
+            
+            completion(students, nil)
+            
         }
-        
     }
     
     // POSTing students info
-    func postStudentLocation(jsonBody: [String:AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    static func postStudentLocation(student: Student, completion: @escaping (_ error: NSError?) -> Void) {
         let method = Methods.StudentLocation
         
-        let _ = taskForPostMethod(method: method, jsonBody: jsonBody) { (JSONResult, error) in
+        let jsonBody = "{\"uniqueKey\": \"\(student.uniqueKey!)\", \"firstName\": \"\(student.firstName ?? "")\", \"lastName\": \"\(student.lastName ?? "")\",\"mapString\": \"\(String(describing: student.location!.mapString!))\", \"mediaURL\": \"\(String(describing: student.mediaURL!))\",\"latitude\": \(String(describing: student.location!.latitude!)), \"longitude\": \(student.location!.longitude!)}"
+        
+        OTMClient.taskForWriteMethod(method: method, httpMethod: .POST, jsonBody: jsonBody) { (result: AnyObject?, error: NSError?) in
+            func sendError(_ error: String) {
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completion(NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
             
-            guard error == nil else {
-                completionHandler(nil, error)
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error.debugDescription)")
                 return
             }
             
-            if let result = JSONResult?[JSONResponseKeys.ObjectID] as? String {
-                completionHandler(result as AnyObject, nil)
-            } else {
-                completionHandler(nil, NSError(domain: "postStudentLocations parsing", code: 0, userInfo:  [NSLocalizedDescriptionKey: "Could not parse student location"]))
+            guard result!["updatedAt"] != nil else {
+                sendError("No data was returned by the request!")
+                return
             }
+            
+            completion(nil)
         }
+        
     }
     
     //PUTing students location
-    func putStudentLocation(objectID: String, jsonBody: [String:AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    static func putStudentLocation(student: Student, completion: @escaping (_ error: NSError?) -> Void) {
+        let method = Methods.StudentLocation + "/" + student.objectId!
         
-        let method = Methods.StudentLocation
+        let jsonBody = "{\"uniqueKey\": \"\(student.uniqueKey!)\", \"firstName\": \"\(student.firstName ?? "")\", \"lastName\": \"\(student.lastName ?? "")\",\"mapString\": \"\(String(describing: student.location!.mapString!))\", \"mediaURL\": \"\(String(describing: student.mediaURL!))\",\"latitude\": \(String(describing: student.location!.latitude!)), \"longitude\": \(student.location!.longitude!)}"
         
-        let _ = taskForPutMethod(method: method, parameters: objectID, jsonBody: jsonBody) {(JSONResult, error) in
+        OTMClient.taskForWriteMethod(method: method, httpMethod: .PUT, jsonBody: jsonBody) { (result: AnyObject?, error: NSError?) in
+            func sendError(_ error: String) {
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completion(NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
             
-            guard error == nil else {
-                completionHandler(nil, error)
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error.debugDescription)")
                 return
             }
             
-            if let result = JSONResult?[JSONBodyKeys.UpdatedAt] as? String {
-                completionHandler(result as AnyObject, nil)
-            } else {
-                completionHandler(nil, NSError(domain: "postStudentLocation parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse student location"]))
+            guard result!["updatedAt"] != nil else {
+                sendError("No data was returned by the request!")
+                return
             }
+            
+            completion(nil)
         }
+        
     }
     
-    func queryForAStudent(completionHandler: @escaping (_ result: [[String:AnyObject]]?, _ error: NSError?) -> Void) {
+    static func getStudentLocation(uniqueKey: String, completionHandler: @escaping (_ student: Student?, _ error: NSError?) -> Void) {
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let parameters = [JSONBodyKeys.Where : "{\"\(JSONBodyKeys.UniqueKey)\":\"" + "\(appDelegate.userID)" + "\"}" as AnyObject]
         
-        let _ = taskForGetMethod(method: Methods.StudentLocation, parameters: parameters as [String : AnyObject]) {(JSONResult, error) in
+        let _ = taskForGETSession(uniqueKey: uniqueKey) {(data, error) in
             
-            guard error == nil else {
-                completionHandler(nil, error)
+            func sendError(_ error: String) {
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandler(nil, NSError(domain: "taskForGETSession", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error.debugDescription)")
                 return
             }
             
-            if let results = JSONResult?[JSONResponseKeys.Results] as? [[String:AnyObject]] {
-                completionHandler(results, nil)
-                print("This are Boscos result INFO",results)
-            } else {
-                completionHandler(nil, NSError(domain: "getStudentLocations", code: 0, userInfo:  [NSLocalizedDescriptionKey: "Could not parse student data"]))
+            guard let result = data!["results"] as? [[String : AnyObject]] else {
+                sendError("No data was returned by the request!")
+                return
             }
+            
+            print(result)
+            
+            let studentDictionary = result[0]
+            let location = Location(dictionary: studentDictionary)
+            let student = Student(dictionary: studentDictionary, location: location)
+            
+            completionHandler(student, nil)
+            
         }
     }
     
     
     
     //MARK: -- Function that DELETEs the current session
-    func deleteSession(completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    static func deleteSession(completion: @escaping () -> Void) {
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
         request.httpMethod = "DELETE"
+        
         var xsrfCookie: HTTPCookie? = nil
         let sharedCookieStorage = HTTPCookieStorage.shared
+        
         for cookie in sharedCookieStorage.cookies! {
             if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
         }
+        
         if let xsrfCookie = xsrfCookie {
             request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
         }
+        
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            if error != nil { // Handle error…
+            
+            if error != nil {
+                print(error!)
                 return
             }
+            
             let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range) /* subset response data! */
-            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+            let _ = data?.subdata(in: range)
+            
+            completion()
         }
         task.resume()
     }
-    
+}
 
+// Log Out Dialogue Box
+
+extension MapViewController {
+    override func logOutDialogueBox(completion: (@escaping () -> Void)) {
+        let alert = UIAlertController(title: "Log Out", message: "Are You Sure Want To Log Out?", preferredStyle: UIAlertControllerStyle.alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        let logOut = UIAlertAction(title: "Log Out", style: .destructive) { (action: UIAlertAction) in
+            completion()
+        }
+        alert.addAction(logOut)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

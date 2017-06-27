@@ -12,7 +12,7 @@ class StudentsTableViewController: UITableViewController {
     
     // MARK: Properties
     
-    var locations = StudentDataSource.sharedInstance.studentData
+    var locations = DataSource.students
     
     // MARK: Outlets
     
@@ -20,10 +20,10 @@ class StudentsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        OTMClient.sharedInstance().getStudentLocations { (locations, error) in
+        OTMClient.getStudentsLocation { (locations, error) in
             if let locations = locations {
                 self.locations = locations
-                performUIUpdatesOnMain {
+                self.executeOnMain {
                     self.locationsTableView.reloadData()
                 }
             } else {
@@ -52,7 +52,7 @@ class StudentsTableViewController: UITableViewController {
                     app.openURL(url as URL)
                     print("Url should have opened")
                 } else {
-                    showAlert(alertTitle: "Unable to load webpage", alertMessage: "Webpage couldn't be opened because the link was invalid.", actionTitle: "Try again!")
+                    presentErrorAlertController("Unable to load webpage", alertMessage: "Webpage couldn't be opened because the link was invalid.")
                 }
             }
         }
@@ -63,10 +63,15 @@ class StudentsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath)
 
         let student = locations[indexPath.row]
-        let textForTitle = student.firstName + "" + student.lastName
+        let textForTitle = student.firstName! + "" + student.lastName!
         
         cell.textLabel?.attributedText = getAttributedText(textToStyle: textForTitle)
-        cell.detailTextLabel!.text = student.mediaURL
+        if let mediaURL = student.mediaURL {
+            let stringURL = String(describing: mediaURL)
+            cell.detailTextLabel?.text = stringURL
+        } else {
+            cell.detailTextLabel?.text = "Unknown Media URL"
+        }
 
         return cell
     }
@@ -80,16 +85,5 @@ class StudentsTableViewController: UITableViewController {
         
         return attributedText
     }
-    
-    //Function that configures and shows an alert
-//    func showAlert(titleString: String, errorString: String){
-//        
-//        /* Configure the alert view to display the error */
-//        let alert = UIAlertController(title: titleString, message: errorString, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
-//        
-//        /* Present the alert view */
-//        self.present(alert, animated: true, completion: nil)
-//    }
 
 }

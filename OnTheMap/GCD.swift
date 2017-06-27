@@ -7,9 +7,19 @@
 //
 
 import Foundation
+import UIKit
 
-func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {
-    DispatchQueue.main.async {
-        updates()
+extension UIViewController {
+    func executeOnMain(_ updates: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            updates()
+        }
+    }
+    
+    func executeOnMain(withDelay timeInSecond: Double, _ updates: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeInSecond, execute: {
+            updates()
+        })
     }
 }
+

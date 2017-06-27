@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2548a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Post View Controller-->
+        <scene sceneID="cu1-Za-kVA">
+            <objects>
+                <viewController storyboardIdentifier="PostViewController" hidesBottomBarWhenPushed="YES" id="Lf4-44-qPQ" customClass="PostViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fqx-fl-bwn"/>
+                        <viewControllerLayoutGuide type="bottom" id="uDl-RX-RBF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bI9-T5-zHw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="p2j-gr-32Z">
+                                <rect key="frame" x="32" y="84" width="311" height="236"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="pTZ-V3-yCJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="311" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="cpz-HH-3KD"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CTO-1E-cjU">
+                                        <rect key="frame" x="0.0" y="96" width="311" height="140"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ETE-zT-VK3">
+                                                <rect key="frame" x="0.0" y="0.0" width="311" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="CYG-ws-GWj"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Website" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o9s-tw-Mwk">
+                                                <rect key="frame" x="0.0" y="50" width="311" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="ofd-j4-vy4"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhw-7I-7Uj">
+                                                <rect key="frame" x="0.0" y="100" width="311" height="40"/>
+                                                <color key="backgroundColor" red="0.20627092899999999" green="0.79289346540000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="KO5-fq-MVa"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="FIND LOCATION">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="pTZ-V3-yCJ" secondAttribute="trailing" id="7bb-ob-4fU"/>
+                                    <constraint firstItem="pTZ-V3-yCJ" firstAttribute="leading" secondItem="p2j-gr-32Z" secondAttribute="leading" id="AbD-xA-SsP"/>
+                                    <constraint firstAttribute="trailing" secondItem="CTO-1E-cjU" secondAttribute="trailing" id="qn0-SO-NFG"/>
+                                    <constraint firstItem="CTO-1E-cjU" firstAttribute="leading" secondItem="p2j-gr-32Z" secondAttribute="leading" id="wZ8-BA-tQE"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="p2j-gr-32Z" firstAttribute="leading" secondItem="bI9-T5-zHw" secondAttribute="leading" constant="32" id="BHN-5I-Rup"/>
+                            <constraint firstAttribute="trailing" secondItem="p2j-gr-32Z" secondAttribute="trailing" constant="32" id="gNS-J5-EUe"/>
+                            <constraint firstItem="p2j-gr-32Z" firstAttribute="top" secondItem="fqx-fl-bwn" secondAttribute="bottom" constant="64" id="kUO-SJ-Rdq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="U8U-jZ-dBi"/>
+                    <connections>
+                        <outlet property="findLocationButton" destination="bhw-7I-7Uj" id="ye3-Sj-Lmd"/>
+                        <outlet property="locationTextField" destination="ETE-zT-VK3" id="mPo-kz-ttp"/>
+                        <outlet property="mediaURLTextField" destination="o9s-tw-Mwk" id="jxn-XW-Ksk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QYy-KF-ZVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2406" y="1141"/>
+        </scene>
+        <!--Post Verification View Controller-->
+        <scene sceneID="ZJE-Sh-NNj">
+            <objects>
+                <viewController storyboardIdentifier="PostVerificationViewController" hidesBottomBarWhenPushed="YES" id="S4d-KD-H1i" customClass="PostVerificationViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fEH-LD-Tq0"/>
+                        <viewControllerLayoutGuide type="bottom" id="3MC-pK-rrv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eql-ZH-6Iz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="di9-AL-WZ6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="84z-ml-i1S">
+                                <rect key="frame" x="32" y="595" width="311" height="40"/>
+                                <color key="backgroundColor" red="0.20627092899999999" green="0.79289346540000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="DlQ-aQ-n3f"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="FINISH">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="84z-ml-i1S" secondAttribute="trailing" constant="32" id="4Ya-xn-uzf"/>
+                            <constraint firstItem="84z-ml-i1S" firstAttribute="leading" secondItem="eql-ZH-6Iz" secondAttribute="leading" constant="32" id="HRO-a5-nrx"/>
+                            <constraint firstItem="di9-AL-WZ6" firstAttribute="top" secondItem="eql-ZH-6Iz" secondAttribute="top" id="Mjw-gP-CHo"/>
+                            <constraint firstItem="3MC-pK-rrv" firstAttribute="top" secondItem="di9-AL-WZ6" secondAttribute="bottom" id="R4Y-CP-BY8"/>
+                            <constraint firstItem="di9-AL-WZ6" firstAttribute="leading" secondItem="eql-ZH-6Iz" secondAttribute="leading" id="Sl8-pm-IdF"/>
+                            <constraint firstAttribute="trailing" secondItem="di9-AL-WZ6" secondAttribute="trailing" id="obL-ej-pO2"/>
+                            <constraint firstItem="3MC-pK-rrv" firstAttribute="top" secondItem="84z-ml-i1S" secondAttribute="bottom" constant="32" id="yiR-lV-Hz9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="finishButton" destination="84z-ml-i1S" id="8lV-WP-W4y"/>
+                        <outlet property="mapView" destination="di9-AL-WZ6" id="pMH-NL-2kV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FpL-oa-HpY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3156" y="1140"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icon_world" width="52" height="67"/>
+    </resources>
+</document>

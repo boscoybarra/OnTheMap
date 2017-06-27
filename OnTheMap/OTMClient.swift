@@ -12,24 +12,29 @@ class OTMClient : NSObject {
     
     // MARK: Properties
     
-    var session = URLSession.shared
- 
+    static var session = URLSession.shared
     
-    // MARK: POST SESSION
+    var requestedToken: String? = nil
+    var sessionID: String? = nil
+    var userID: String? = nil
     
-    func taskForPostSession(method: String, jsonBody: [String : AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
+    
+    // MARK: GET SESSION
+    
+    @discardableResult static func taskForGETSession(uniqueKey: String, completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
         
-        let postSessionURL = URL(string: method)!
-        var request = URLRequest(url: postSessionURL)
+        /* 1. Set the parameters */
         
-        request.httpMethod = "POST"
-        request.addValue(Constants.ParseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-KEY")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let urlString = "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22"+"\(uniqueKey)"+"%22%7D"
+        let url = URL(string: urlString)
         
-        do{
-            request.httpBody = try! JSONSerialization.data(withJSONObject: jsonBody, options: [])
-        }
+        let request = NSMutableURLRequest(url: url!)
+        
+        /* 2/3. Build the UrL and configure the request */
+        
+        print("esta es la URL",request)
+        request.addValue("\(Constants.ParseAppID)", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("\(Constants.ApiKey)", forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         //make request
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -37,11 +42,10 @@ class OTMClient : NSObject {
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandler(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
+                completionHandler(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
                 return
             }
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range)
+            
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
@@ -56,82 +60,29 @@ class OTMClient : NSObject {
             }
             
             /* GUARD: Was there any data returned? */
-            guard newData != nil else {
+            guard let data = data else {
                 sendError("No data was returned by the request!")
                 return
             }
             
             /* 5/6. Parse and use the data */
-            self.parseJSONWithCompletionHandler(data: newData! as NSData, completionHandler: completionHandler)
+            self.parseJSONWithCompletionHandler(data: data as NSData, completionHandler: completionHandler)
         }
         
         task.resume()
         return task
         
     }
+
     
-    
-    // MARK: POST
-    
-    func taskForPostMethod(method: String, jsonBody: [String : AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
-        
-        var request = NSMutableURLRequest(url: self.tmdbURLFromParameters(nil, withPathExtension: method))
-        
-        request.httpMethod = "POST"
-        request.addValue(Constants.ParseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-KEY")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do{
-            request.httpBody = try! JSONSerialization.data(withJSONObject: jsonBody, options: [])
-        }
-        
-        //make request
-        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
-            
-            func sendError(_ error: String) {
-                print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandler(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
-                return
-            }
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range)
-            
-            /* GUARD: Was there an error? */
-            guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)")
-                return
-            }
-            
-            /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
-                return
-            }
-            
-            /* GUARD: Was there any data returned? */
-            guard newData != nil else {
-                sendError("No data was returned by the request!")
-                return
-            }
-            
-            /* 5/6. Parse and use the data */
-            self.parseJSONWithCompletionHandler(data: newData! as NSData, completionHandler: completionHandler)
-        }
-        
-        task.resume()
-        return task
-        
-    }
     
     // MARK: GET
     
-    func taskForGetMethod(method: String, parameters: [String : AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
+    @discardableResult static func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
         
         /* 1. Set the parameters */
       
-        let url = self.tmdbURLFromParameters(parameters, withPathExtension: method)
+        let url = self.parseURLFromParameters(parameters, withPathExtension: method)
         
         let request = NSMutableURLRequest(url: url)
         
@@ -179,59 +130,44 @@ class OTMClient : NSObject {
         
     }
     
+    // MARK: PUT/POST
     
-    
-    // MARK: PUT
-    
-    func taskForPutMethod(method: String, parameters: String, jsonBody: [String:AnyObject], completionHandler: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask{
+    @discardableResult static func taskForWriteMethod(method: String, httpMethod: Write, jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
-        var request = URLRequest(url: self.tmdbURLFromParameters(nil, withPathExtension: method))
+        var request = URLRequest(url: self.parseURLFromParameters(nil, withPathExtension: method))
         
-        request.httpMethod = "PUT"
-        request.addValue(Constants.ParseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(Constants.ApiKey, forHTTPHeaderField: "X-Parse-REST-API-KEY")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = httpMethod.rawValue
+        request.addValue(Constants.ParseAppID, forHTTPHeaderField: JSONBodyKeys.ApplicationID)
+        request.addValue(Constants.ApiKey, forHTTPHeaderField: JSONBodyKeys.ApiKey)
+        request.addValue(Constants.JSONApplication, forHTTPHeaderField: JSONBodyKeys.ContentType)
+        request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         
-        do{
-            request.httpBody = try! JSONSerialization.data(withJSONObject: jsonBody, options: [])
-        }
-        
-        //make request
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandler(nil, NSError(domain: "taskForPUTMethod", code: 1, userInfo: userInfo))
+                completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
             }
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range)
             
-            /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)")
+                sendError("There was an error with your request: \(error.debugDescription)")
                 return
             }
             
-            /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 sendError("Your request returned a status code other than 2xx!")
                 return
             }
             
-            /* GUARD: Was there any data returned? */
-            guard newData != nil else {
+            guard let data = data else {
                 sendError("No data was returned by the request!")
                 return
             }
-            
-            /* 5/6. Parse and use the data */
-            self.parseJSONWithCompletionHandler(data: newData! as NSData, completionHandler: completionHandler)
+            self.parseJSONWithCompletionHandler(data: data as NSData, completionHandler: completionHandlerForPOST)
         }
-        
         task.resume()
         return task
-        
     }
     
     
@@ -239,7 +175,7 @@ class OTMClient : NSObject {
     
     
     // given raw JSON, return a usable Foundation object
-    private func parseJSONWithCompletionHandler(data: NSData, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    private static func parseJSONWithCompletionHandler(data: NSData, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         var parsedResult: AnyObject!
         do {
@@ -256,7 +192,7 @@ class OTMClient : NSObject {
     
     
     // create a URL from parameters
-    private func tmdbURLFromParameters(_ parameters: [String:AnyObject]?, withPathExtension: String?) -> URL {
+    private static func parseURLFromParameters(_ parameters: [String:AnyObject]?, withPathExtension: String?) -> URL {
         
         var components = URLComponents()
         components.scheme = OTMClient.Constants.ApiScheme
@@ -276,32 +212,5 @@ class OTMClient : NSObject {
         return components.url!
     }
     
-    //Given a dictionary of parameters, convert string for a url
-    class func escapedParameters(parameters: [String : AnyObject]) -> String {
-        var urlVars = [String]()
-        
-        for (key, value) in parameters {
-            
-            /* Make sure that it is a string value */
-            let stringValue = "\(value)"
-            
-            /* Escape it */
-            let escapedValue = stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
-            
-            /* Append it */
-            urlVars += [key + "=" + "\(escapedValue!)"]
-        }
-        return (!urlVars.isEmpty ? "?" : "") + urlVars.joined(separator: "&")
-        
-    }
-    
-    
-    // MARK: Shared Instance
-    
-    class func sharedInstance() -> OTMClient {
-        struct Singleton {
-            static var sharedInstance = OTMClient()
-        }
-        return Singleton.sharedInstance
-    }
+
 }
