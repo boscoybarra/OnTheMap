@@ -2,7 +2,7 @@
 //  SafariServices.swift
 //  OnTheMap
 //
-//  This was created by Zulwiyoza Putra on 1/15/17.
+//  Created by Zulwiyoza Putra on 2/16/17.
 //  Copyright © 2017 zulwiyozaputra. All rights reserved.
 //
 
@@ -15,7 +15,6 @@ extension UIViewController {
         guard let url = URL(string: stringURL) else {
             return
         }
-        
         if url.scheme != nil {
             let safariViewController = SFSafariViewController(url: url, entersReaderIfAvailable: true)
             self.present(safariViewController, animated: true, completion: nil)

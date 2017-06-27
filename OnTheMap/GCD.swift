@@ -2,8 +2,8 @@
 //  GCD.swift
 //  OnTheMap
 //
-//  Created by J B on 6/8/17.
-//  Copyright © 2017 J B. All rights reserved.
+//  Created by Zulwiyoza Putra on 2/16/17.
+//  Copyright © 2017 zulwiyozaputra. All rights reserved.
 //
 
 import Foundation

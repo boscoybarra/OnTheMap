@@ -29,7 +29,6 @@
 		297324971F0147F7009DAF80 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297324961F0147F7009DAF80 /* NetworkReachability.swift */; };
 		297324991F014A5A009DAF80 /* Initial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297324981F014A5A009DAF80 /* Initial.storyboard */; };
 		2973249B1F014AB2009DAF80 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973249A1F014AB2009DAF80 /* InitialViewController.swift */; };
-		298E3D8E1F0166CD00AD3FA9 /* OTMInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D8D1F0166CD00AD3FA9 /* OTMInstance.swift */; };
 		298E3D901F01809800AD3FA9 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D8F1F01809800AD3FA9 /* SessionManager.swift */; };
 		298E3D931F01898D00AD3FA9 /* On_The_Map.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D911F01898D00AD3FA9 /* On_The_Map.xcdatamodeld */; };
 		298E3D951F018A2B00AD3FA9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 298E3D941F018A2B00AD3FA9 /* Login.storyboard */; };
@@ -65,7 +64,6 @@
 		297324961F0147F7009DAF80 /* NetworkReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		297324981F014A5A009DAF80 /* Initial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Initial.storyboard; sourceTree = "<group>"; };
 		2973249A1F014AB2009DAF80 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
-		298E3D8D1F0166CD00AD3FA9 /* OTMInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMInstance.swift; sourceTree = "<group>"; };
 		298E3D8F1F01809800AD3FA9 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		298E3D921F01898D00AD3FA9 /* On_The_Map.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = On_The_Map.xcdatamodel; sourceTree = "<group>"; };
 		298E3D941F018A2B00AD3FA9 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				291305D71EE9D36B00AC2CE4 /* OTMConstants.swift */,
 				290765371EF1A407005D6091 /* OTMConvenience.swift */,
 				290765321EF1A051005D6091 /* OTMClient.swift */,
-				298E3D8D1F0166CD00AD3FA9 /* OTMInstance.swift */,
 			);
 			name = OTM;
 			sourceTree = "<group>";
@@ -263,7 +260,6 @@
 				29CB963E1F02AB1D0047508C /* UITextFieldDelegate.swift in Sources */,
 				2941189E1F019A0800EE6001 /* Location.swift in Sources */,
 				2941189C1F0199B500EE6001 /* Student.swift in Sources */,
-				298E3D8E1F0166CD00AD3FA9 /* OTMInstance.swift in Sources */,
 				291305DA1EE9DC0300AC2CE4 /* LoginViewController.swift in Sources */,
 				298E3D971F018CC300AD3FA9 /* AlertController.swift in Sources */,
 				294118A01F01A2AB00EE6001 /* MainViewController.swift in Sources */,

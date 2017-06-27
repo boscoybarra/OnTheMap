@@ -26,7 +26,7 @@ class LogInViewController: UIViewController {
     var appDelegate: AppDelegate!
     var email: String?
     var password: String?
-    var validAccount: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,8 +85,6 @@ class LogInViewController: UIViewController {
                 }
             }
         }
-        
-        
     }
     
     @objc private func signUp() {

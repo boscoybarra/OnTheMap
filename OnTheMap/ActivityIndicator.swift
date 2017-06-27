@@ -2,7 +2,7 @@
 //  ActivityIndicatorController.swift
 //  On The Map
 //
-//  This was created by Zulwiyoza Putra on 1/15/17.
+//  Created by Zulwiyoza Putra on 2/16/17.
 //  Copyright © 2017 zulwiyozaputra. All rights reserved.
 //
 

@@ -2,9 +2,10 @@
 //  PostViewController.swift
 //  OnTheMap
 //
-//  This was created by Zulwiyoza Putra on 1/15/17.
-//  Copyright © 2017 zulwiyozaputra. All rights reserved.
+//  Created by J B on 6/8/17.
+//  Copyright © 2017 J B. All rights reserved.
 //
+
 import UIKit
 import MapKit
 

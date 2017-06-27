@@ -2,7 +2,7 @@
 //  NetworkReachability.swift
 //  On The Map
 //
-//  Created by Zulwiyoza Putra on 6/17/17.
+//  Created by Zulwiyoza Putra on 2/16/17.
 //  Copyright © 2017 zulwiyozaputra. All rights reserved.
 //
 
