@@ -2,8 +2,8 @@
 //  SafariServices.swift
 //  OnTheMap
 //
-//  Created by Zulwiyoza Putra on 2/16/17.
-//  Copyright © 2017 zulwiyozaputra. All rights reserved.
+//  Created by J B on 6/14/17.
+//  Copyright © 2017 J B. All rights reserved.
 //
 
 import Foundation
@@ -16,12 +16,18 @@ extension UIViewController {
             return
         }
         if url.scheme != nil {
-            let safariViewController = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-            self.present(safariViewController, animated: true, completion: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         } else {
             if let schemedURL = URL(string: "http://" + stringURL) {
-                let safariViewController = SFSafariViewController(url: schemedURL, entersReaderIfAvailable: true)
-                self.present(safariViewController, animated: true, completion: nil)
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(schemedURL, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(schemedURL)
+                }
             } else {
                 presentErrorAlertController("Sorry", alertMessage: "The page you try to visit has no valid URL")
             }
