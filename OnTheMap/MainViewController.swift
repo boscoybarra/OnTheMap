@@ -72,11 +72,6 @@ class MainViewController: UIViewController {
                 self.executeOnMain {
                     self.state(state: .normal, activityIndicator: self.activityIndicator, background: self.backgroundView)
                     self.dismiss(animated: true, completion: nil)
-                    let storyBoard = UIStoryboard(name: "Login", bundle: nil)
-                    let homeTabBarController = storyBoard.instantiateViewController(withIdentifier: "LogInViewController")
-                    
-                        print(homeTabBarController)
-                        self.present(homeTabBarController, animated: true, completion: nil)
                 }
                 
             }

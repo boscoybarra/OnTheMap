@@ -8,8 +8,8 @@
 
 import UIKit
 
-class StudentsTableViewController: UITableViewController {
-    
+class StudentsTableViewController: MainViewController {
+
     // MARK: Properties
     
     var locations = DataSource.students
@@ -31,19 +31,12 @@ class StudentsTableViewController: UITableViewController {
             }
         }
     }
-
-
-    // MARK: - Table view data sourceff
-
- 
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return locations.count
-    }
     
+}
+
+extension StudentsTableViewController: UITableViewDelegate {
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let app = UIApplication.shared
         
         if let cell = tableView.cellForRow(at: indexPath as IndexPath){
@@ -57,9 +50,8 @@ class StudentsTableViewController: UITableViewController {
             }
         }
     }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath)
 
         let student = locations[indexPath.row]
@@ -85,5 +77,12 @@ class StudentsTableViewController: UITableViewController {
         
         return attributedText
     }
+}
 
+// Table View Data Source
+extension StudentsTableViewController: UITableViewDataSource {
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // #warning Incomplete implementation, return the number of rows
+    return locations.count
+}
 }
