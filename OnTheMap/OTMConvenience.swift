@@ -108,10 +108,13 @@ extension OTMClient {
     }
 
     
-    //MARK: -- Function GETs the last 100 student locations created
+    //MARK: -- Function GETs the last 300 student locations created
     static func getStudentsLocation(completion: @escaping (_ students: [Student]?, _ error: NSError?) -> Void) {
         
-        let parameters = ["limit": "300"] as [String: AnyObject]
+        let parameters = [
+            "limit": "300",
+            JSONBodyKeys.Order : JSONResponseKeys.LastUpdated] as [String: AnyObject]
+        
         
         OTMClient.taskForGETMethod(method: Methods.StudentLocation, parameters: parameters) { (data: AnyObject?, error: NSError?) in
             func sendError(_ error: String) {
