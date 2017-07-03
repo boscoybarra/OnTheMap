@@ -17,7 +17,6 @@
 		291305D81EE9D36B00AC2CE4 /* OTMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305D71EE9D36B00AC2CE4 /* OTMConstants.swift */; };
 		291305DA1EE9DC0300AC2CE4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305D91EE9DC0300AC2CE4 /* LoginViewController.swift */; };
 		291305DC1EE9EA4E00AC2CE4 /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305DB1EE9EA4E00AC2CE4 /* GCD.swift */; };
-		291305DE1EE9FDAD00AC2CE4 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */; };
 		2941189C1F0199B500EE6001 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941189B1F0199B500EE6001 /* Student.swift */; };
 		2941189E1F019A0800EE6001 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941189D1F019A0800EE6001 /* Location.swift */; };
 		294118A01F01A2AB00EE6001 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941189F1F01A2AB00EE6001 /* MainViewController.swift */; };
@@ -30,7 +29,6 @@
 		297324991F014A5A009DAF80 /* Initial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297324981F014A5A009DAF80 /* Initial.storyboard */; };
 		2973249B1F014AB2009DAF80 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2973249A1F014AB2009DAF80 /* InitialViewController.swift */; };
 		298E3D901F01809800AD3FA9 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D8F1F01809800AD3FA9 /* SessionManager.swift */; };
-		298E3D931F01898D00AD3FA9 /* On_The_Map.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D911F01898D00AD3FA9 /* On_The_Map.xcdatamodeld */; };
 		298E3D951F018A2B00AD3FA9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 298E3D941F018A2B00AD3FA9 /* Login.storyboard */; };
 		298E3D971F018CC300AD3FA9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D961F018CC300AD3FA9 /* AlertController.swift */; };
 		298E3D991F018DF000AD3FA9 /* SafariServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E3D981F018DF000AD3FA9 /* SafariServices.swift */; };
@@ -52,7 +50,6 @@
 		291305D71EE9D36B00AC2CE4 /* OTMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConstants.swift; sourceTree = "<group>"; };
 		291305D91EE9DC0300AC2CE4 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		291305DB1EE9EA4E00AC2CE4 /* GCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
-		291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		2941189B1F0199B500EE6001 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		2941189D1F019A0800EE6001 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		2941189F1F01A2AB00EE6001 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -65,7 +62,6 @@
 		297324981F014A5A009DAF80 /* Initial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Initial.storyboard; sourceTree = "<group>"; };
 		2973249A1F014AB2009DAF80 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		298E3D8F1F01809800AD3FA9 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
-		298E3D921F01898D00AD3FA9 /* On_The_Map.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = On_The_Map.xcdatamodel; sourceTree = "<group>"; };
 		298E3D941F018A2B00AD3FA9 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		298E3D961F018CC300AD3FA9 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		298E3D981F018DF000AD3FA9 /* SafariServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariServices.swift; sourceTree = "<group>"; };
@@ -164,9 +160,7 @@
 				297324981F014A5A009DAF80 /* Initial.storyboard */,
 				291305CE1EE9D0E400AC2CE4 /* LaunchScreen.storyboard */,
 				290765341EF1A056005D6091 /* Model */,
-				291305DD1EE9FDAD00AC2CE4 /* BorderedButton.swift */,
 				291305D11EE9D0E400AC2CE4 /* Info.plist */,
-				298E3D911F01898D00AD3FA9 /* On_The_Map.xcdatamodeld */,
 			);
 			path = OnTheMap;
 			sourceTree = "<group>";
@@ -264,9 +258,7 @@
 				298E3D971F018CC300AD3FA9 /* AlertController.swift in Sources */,
 				294118A01F01A2AB00EE6001 /* MainViewController.swift in Sources */,
 				29CD7B3D1EF464B90071FB45 /* StudentsTableViewController.swift in Sources */,
-				298E3D931F01898D00AD3FA9 /* On_The_Map.xcdatamodeld in Sources */,
 				297324971F0147F7009DAF80 /* NetworkReachability.swift in Sources */,
-				291305DE1EE9FDAD00AC2CE4 /* BorderedButton.swift in Sources */,
 				291305D81EE9D36B00AC2CE4 /* OTMConstants.swift in Sources */,
 				291305C81EE9D0E300AC2CE4 /* MapViewController.swift in Sources */,
 				291305C61EE9D0E300AC2CE4 /* AppDelegate.swift in Sources */,
@@ -437,19 +429,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		298E3D911F01898D00AD3FA9 /* On_The_Map.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				298E3D921F01898D00AD3FA9 /* On_The_Map.xcdatamodel */,
-			);
-			currentVersion = 298E3D921F01898D00AD3FA9 /* On_The_Map.xcdatamodel */;
-			path = On_The_Map.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 291305BA1EE9D0E300AC2CE4 /* Project object */;
 }

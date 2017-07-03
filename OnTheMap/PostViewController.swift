@@ -120,7 +120,7 @@ class PostViewController: UIViewController {
             postVerificationViewController.mediaURL = mediaURL
             self.navigationController?.pushViewController(postVerificationViewController, animated: true)
         } else {
-            let mediaURL = URL(string: "https://zulwiyozaputra.com")
+            let mediaURL = URL(string: "https://ybarra.io")
             postVerificationViewController.mediaURL = mediaURL
             self.navigationController?.pushViewController(postVerificationViewController, animated: true)
         }

@@ -37,11 +37,6 @@ class PostVerificationViewController: UIViewController {
         finishButton.addTarget(self, action: #selector(finish), for: .touchUpInside)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func back() {
         self.navigationController?.popViewController(animated: true)
     }

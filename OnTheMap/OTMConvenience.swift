@@ -238,12 +238,12 @@ extension OTMClient {
                 return
             }
             
-            guard let result = data!["results"] as? [[String : AnyObject]] else {
+            guard let result = data?["results"] as? [[String : AnyObject]] else {
                 sendError("No data was returned by the request!")
                 return
             }
             
-            print(result)
+            print("Estos son los resultados", result)
             
             let studentDictionary = result[0]
             let location = Location(dictionary: studentDictionary)

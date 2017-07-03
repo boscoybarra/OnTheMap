@@ -20,6 +20,8 @@ class InitialViewController: UIViewController {
     
     func isLoggedIn() -> Bool {
         if UserDefaults.standard.value(forKey: "uniqueKey") as? String != nil {
+            let unique = UserDefaults.standard.value(forKey: "uniqueKey")
+            print("This is my key", unique!)
             return true
         } else {
             return false
@@ -29,7 +31,7 @@ class InitialViewController: UIViewController {
     // Presenting Main view
     func presentMainView(animate: Bool) -> Void {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let homeTabBarController = storyBoard.instantiateViewController(withIdentifier: "MapTabController")
+        let homeTabBarController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController")
         if animate {
             print(homeTabBarController)
             self.present(homeTabBarController, animated: true, completion: nil)

@@ -108,7 +108,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fCq-Q2-Ntc"/>
                     <connections>
-                        <outlet property="mapView" destination="LMr-jV-FvU" id="I25-Hh-jg1"/>
+                        <outlet property="mapView" destination="LMr-jV-FvU" id="UlI-RC-AD2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKL-gy-8eE" sceneMemberID="firstResponder"/>
